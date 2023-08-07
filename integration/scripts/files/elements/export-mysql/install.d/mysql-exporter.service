@@ -1,0 +1,21 @@
+[Unit]
+Description=MySQL Exporter
+After=syslog.target network.target guest-agent.service
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/local/bin/db_exporter \
+--config.my-cnf /home/trove/.my.cnf \
+--collect.auto_increment.columns \
+--collect.binlog_size \
+--collect.engine_innodb_status \
+--collect.global_status \
+--web.listen-address=0.0.0.0:9104
+
+# Restart on failure. Keep trying to create backup.
+RestartSec=1m
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

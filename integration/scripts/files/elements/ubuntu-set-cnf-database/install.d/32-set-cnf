@@ -1,0 +1,43 @@
+# #!/bin/bash
+
+# # CONTEXT: GUEST during CONSTRUCTION as ROOT
+# # PURPOSE: Install controller base required packages
+# # Refer to https://mariadb.com/kb/en/library/installing-mariadb-deb-files
+
+# set -e
+# set -o xtrace
+
+# MEMTOTAL=$(( $(cat /proc/meminfo | grep MemTotal | awk '{print($2)}')/1000 ))
+# MEMSET=$(echo $(( MEMTOTAL*80/100)))
+# MAXCONNC=$(cat /etc/mysql/my.cnf | grep max_connections)
+# BUFF=$(cat /etc/mysql/my.cnf | grep innodb_buffer_pool_size)
+
+# sed -i "s/$MAXCONNC/max_connections = 2000/" /etc/mysql/my.cnf
+# sed -i "s/$BUFF/innodb_buffer_pool_size = $MEMSET/" /etc/mysql/my.cnf
+
+# # LOG_BIN=$(cat /etc/mysql/my.cnf | grep log-bin)
+# # LOG_DAYS=$(cat /etc/mysql/my.cnf | grep expire_logs_days)
+# # LOG_SIZE=$(cat /etc/mysql/my.cnf | grep max_binlog_size)
+
+# if [ ! $(cat /etc/mysql/my.cnf | grep log-bin) ]
+# then
+#     sed -i 's/user = mysql/user = mysql\nlog-bin/' /etc/mysql/my.cnf
+# else
+#     sed -i "s/$(cat /etc/mysql/my.cnf | grep expire_logs_days)/log-bin/" /etc/mysql/my.cnf
+# fi
+
+# if [ ! $(cat /etc/mysql/my.cnf | grep expire_logs_days) ]
+# then
+#     sed -i 's/bin/bin\nexpire_logs_days=7/' /etc/mysql/my.cnf
+# else
+#     sed -i "s/$(cat /etc/mysql/my.cnf | grep expire_logs_days)/expire_logs_days=7/" /etc/mysql/my.cnf
+# fi
+
+# if [ ! $(cat /etc/mysql/my.cnf | grep expire_logs_days) ]
+# then
+#     sed -i 's/bin/bin\nmax_binlog_size = 200000000/' /etc/mysql/my.cnf
+# else
+#     sed -i "s/$(cat /etc/mysql/my.cnf | grep expire_logs_days)/max_binlog_size = 200000000/" /etc/mysql/my.cnf
+# fi
+
+# systemctl restart mariadb

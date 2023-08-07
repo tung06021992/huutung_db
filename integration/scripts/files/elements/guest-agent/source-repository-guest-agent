@@ -1,0 +1,4 @@
+# This is used for source-based builds with develop branch for testing
+guest-agent git /opt/guest-agent https://opendev.org/openstack/trove stable/train
+#upper-constraints file /opt/upper-constraints.txt https://opendev.org/openstack/requirements/raw/branch/master/upper-constraints.txt
+upper-constraints file /opt/upper-constraints.txt https://opendev.org/openstack/requirements/raw/branch/stable/stein/upper-constraints.txt

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# PURPOSE: Install redis required package in guest-agent-venv
+
+set -ex
+
+if [ $GUEST_VENV ]
+then
+  # Install Python driver for Postgresql
+  $GUEST_VENV/bin/pip3 install psycopg2-binary
+fi
+

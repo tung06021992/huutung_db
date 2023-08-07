@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ ${DIB_DEBUG_TRACE:-1} -gt 0 ]; then
+    set -x
+fi
+set -e
+set -o pipefail
+
+GUEST_USERNAME=${GUEST_USERNAME:-"ubuntu"}
+
+cat >/etc/sudoers.d/${GUEST_USERNAME} <<_EOF_
+Defaults:${GUEST_USERNAME} !requiretty
+${GUEST_USERNAME} ALL=(ALL) NOPASSWD:ALL
+_EOF_
+
+mkdir /etc/trove
+touch etc/trove/fix_hostname.sh
+
+cat >etc/trove/fix_hostname.sh <<"_EOF_"
+sudo -h 127.0.0.1 sed -i '1s/.*/127.0.0.1 localhost HOSTNAME/' /etc/hosts
+sudo -h 127.0.0.1 sed -i "s/HOSTNAME/$HOSTNAME/g" /etc/hosts
+_EOF_

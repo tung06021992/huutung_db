@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# CONTEXT: GUEST during CONSTRUCTION as ROOT
+# PURPOSE: Install controller base required packages
+
+set -ex
+
+GUEST_VENV=/opt/guest-agent-venv
+
+# Install Python driver for Redis ('redis-py').
+${GUEST_VENV}/bin/pip install redis

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -e
+set -o xtrace
+
+# Fix issue:
+# [ERROR] InnoDB: redo log file './ib_logfile0' exists
+# [ERROR] InnoDB: redo log file './ib_logfile1' exists
+mv /var/lib/mysql/data/ib_logfile0 /var/lib/mysql/data/ib_logfile0_bak
+mv /var/lib/mysql/data/ib_logfile1 /var/lib/mysql/data/ib_logfile1_bak
